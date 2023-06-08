@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="banner">
+                <div class="banner-text">
+                    <h1>SIMPLE CRUD OPERATION</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+<div class="card border border-primary">
+<div class="card-body">
+
+            <form method="POST" >
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>SL NO:</label>
+                    <input type="text" class="form-control" name="si">
+                </div><br>
+                <div class="form-group">
+                    <label>Item Name:</label>
+                    <input type="text" class="form-control" name="item">
+                </div><br>
+                <div class="form-group">
+                    <label>Description:</label>
+                    <input type="text" class="form-control" name="desc">
+                </div><br>
+                <input type="submit" value="Create" class="btn btn-success"><br>         
+                </form>
+</div> 
+</div>
+</div>
+</div>
+{% for msg in messages %}
+<div class="container">
+  <div class="alert alert-info" role="alert">
+ {{msg}}
+</div>
+</div>
+{% endfor %}
+<div class="container">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Item Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in crud1 %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{i.item}}</td>
+      <td>{{i.desc}}</td>
+      <td>
+      <a class="btn btn-warning" href="{% url 'update' i.id %}">Update</a>
+      <a class="btn btn-danger" href="{% url 'delete' i.id %}">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+
+        
+{% endblock %}
